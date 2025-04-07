@@ -2,6 +2,7 @@ package com.security2.jwt;
 
 import com.security2.domain.UserEntity;
 import com.security2.dto.CustomUserDetails;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,13 +37,20 @@ public class JwtFilter extends OncePerRequestFilter { // 요청이 들어오면 
         String token = authorization.split(" ")[1];
 
         // 토큰 만료 확인
-        if(jwtUtil.isExpired(token)) {
-            log.info("token expired");
-            response.getWriter().write("Token Expired");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 에러
-            filterChain.doFilter(request, response);
+        try {
+            if (jwtUtil.isExpired(token)) {
+                log.info("Token expired");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Token expired");
+                return;
+            }
+        } catch (ExpiredJwtException e) {
+            log.info("JWT Exception : {}", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Expired token");
             return;
         }
+
 
         // 토큰값 암호를 복호화해서 값을 꺼내온다.
         String username = jwtUtil.getUsername(token);
