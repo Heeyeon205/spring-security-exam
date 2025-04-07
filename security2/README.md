@@ -1,4 +1,4 @@
-# 🔐 02. [Spring Security] JWT 기반 인증 방식
+# 🔐 02 [Spring Security] JWT 기반 인증 방식
 
 JWT(Json Web Token)는 클라이언트에게 Access Token과 Refresh Token을 발급하여, 서버의 세션 저장 없이도 인증 상태를 유지할 수 있는 **Stateless 인증 방식**입니다.
 
