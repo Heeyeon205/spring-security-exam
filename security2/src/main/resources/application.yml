@@ -36,3 +36,6 @@ spring:
           time_zone: Asia/Seoul
         format_sql: true
         use_sql_comments: true
+
+  jwt:
+    secret: 32jiogj32098dsjnm12foinjv032jmklsd3 #HASHCODE(256)

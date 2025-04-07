@@ -1,5 +1,6 @@
 package com.security2.config;
 
+import com.security2.jwt.JwtUtil;
 import com.security2.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JwtUtil jwtUtil;
 
     @Bean   // 우리의 인증 객체를 관리하는 매니저 객체
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
@@ -33,14 +35,9 @@ public class SecurityConfig {
 
     @Bean     // 보안 필터 체인을 구성하는 핵심 메서드. 이 Bean이 Security 설정의 중심
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http    // csrf 비활성화
-                .csrf(AbstractHttpConfigurer::disable);
-
-        http    // 시큐리티 세션 로그인 진행 X
-                .formLogin((auth) -> auth.disable());
-
-       http    // 시큐리티 세션 로그인 진행 X
-               .httpBasic(AbstractHttpConfigurer::disable);
+        http.csrf(AbstractHttpConfigurer::disable);         // csrf 비활성화
+        http.formLogin(AbstractHttpConfigurer::disable);    // 시큐리티 세션 로그인 진행 X
+        http.httpBasic(AbstractHttpConfigurer::disable);    // 시큐리티 세션 로그인 진행 X
 
         http    // Spring Security 6에서 HTTP 요청에 대한 접근 제어(Authorization) 를 구성할 때 사용하는 메서드.
                 .authorizeHttpRequests((authorize) -> authorize
@@ -50,7 +47,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()); // 다른 모든 url 은 권한 검증을 거쳐야 한다.
 
         http    // addfilterAt 기존 필터 대신 우리 필터로 대체
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil)
+                        , UsernamePasswordAuthenticationFilter.class);
 
 
         http     // 세션 stateful => stateless 로 변경 : JWT 토큰 staless한 세션으로 관리하겠다
