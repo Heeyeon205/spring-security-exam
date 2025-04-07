@@ -4,7 +4,7 @@ server:
     encoding:
       force-response: true
     session:
-      timeout: 30m
+      timeout: 30m  #세션 만료 시간
 
 logging:
   level:

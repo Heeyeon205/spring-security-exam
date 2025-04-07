@@ -22,8 +22,8 @@ public class SecurityConfig {
     // 보안 필터 체인을 구성하는 핵심 메서드. 이 Bean이 Security 설정의 중심
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http    // csrf 비활성화
-                .csrf(AbstractHttpConfigurer::disable);
+//        http    // csrf 비활성화
+//                .csrf(AbstractHttpConfigurer::disable);
 
         http    // Spring Security 6에서 HTTP 요청에 대한 접근 제어(Authorization) 를 구성할 때 사용하는 메서드.
                 .authorizeHttpRequests((authorize) ->  authorize
@@ -38,6 +38,15 @@ public class SecurityConfig {
                         .loginProcessingUrl("/loginProc")   // form post => 명시한 url 들어감
                         .permitAll()
                 );
+
+        http
+                .logout((auth) -> auth.logoutUrl("/logout")
+                        .logoutSuccessUrl("/"));
+
+        http    // 세션 고정 공력 보호 (로그인 마다 세션 ID 값을 변경한다.)
+                .sessionManagement((auth) -> auth
+                        .sessionFixation().changeSessionId());
+
         return http.build();
     }
 }

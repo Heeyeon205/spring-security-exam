@@ -27,7 +27,6 @@ public class MainController {
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator(); // 이터레이터로 변경해서 값을 꺼낼 수 있다.
         GrantedAuthority grantedAuthority = iterator.next();
         String role = grantedAuthority.getAuthority();
-        String authString = role + " : " + username;
-        return authString;
+        return role + " : " + username;
     }
 }
