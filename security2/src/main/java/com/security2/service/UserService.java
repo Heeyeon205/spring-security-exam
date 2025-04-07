@@ -1,8 +1,9 @@
 package com.security2.service;
 
-import com.security.domain.UserEntity;
-import com.security.dto.JoinLoginRequest;
-import com.security.repository.UserRepository;
+
+import com.security2.domain.UserEntity;
+import com.security2.dto.JoinLoginRequest;
+import com.security2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -13,8 +13,8 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
     private final UserEntity userEntity;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { // 권한은 하나의 객체가 여러개를 가질 수 있다.
+    @Override   // 권한은 하나의 객체가 여러개를 가질 수 있다.
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new GrantedAuthority() {
             @Override
