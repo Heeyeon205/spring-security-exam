@@ -1,5 +1,6 @@
 package com.security2.config;
 
+import com.security2.jwt.JwtFilter;
 import com.security2.jwt.JwtUtil;
 import com.security2.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,9 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")     // admin 권한 사용자만 이용 가능
                         .requestMatchers("/mypage/**").hasAnyRole("ADMIN", "USER") // admin, user 일때만 mypage 하위 페이지 접근 가능
                         .anyRequest().authenticated()); // 다른 모든 url 은 권한 검증을 거쳐야 한다.
+
+        http    // jwt 필터를 login 필터 실행 전에 실행해
+                .addFilterBefore(new JwtFilter(jwtUtil), LoginFilter.class);
 
         http    // addfilterAt 기존 필터 대신 우리 필터로 대체
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil)
