@@ -1,1 +1,1 @@
-# Spring Security OAuth2 + Session
+# 03 [Spring Security] OAuth2
