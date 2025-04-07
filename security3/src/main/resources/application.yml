@@ -1,0 +1,41 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      force-response: true
+    session:
+      timeout: 30m
+
+logging:
+  level:
+    com.my.studyRecord: trace
+    org.springframework.security: debug
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 1234
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false # 개발할때는 수정하고 브라우저 새로고침해도 반영 안되는거 해결해주기
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
+    hibernate:
+      ddl-auto: none
+
+    # JDBC TimeZone Setting
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Seoul
+        format_sql: true
+        use_sql_comments: true
+
+  jwt:
+    secret: 32jiogj32098dsjnm12foinjv032jmklsd3 #HASHCODE(256)
