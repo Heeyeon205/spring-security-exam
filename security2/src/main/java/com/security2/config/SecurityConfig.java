@@ -4,11 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 
 @Configuration  // 이 클래스가 스프링 설정 클래스임을 명시. Bean 등록용
 @EnableWebSecurity  // Spring Security 활성화. 이 클래스에서 보안 설정을 하겠다는 의미
@@ -34,7 +32,7 @@ public class SecurityConfig {
 
         http    // Spring Security 6에서 HTTP 요청에 대한 접근 제어(Authorization) 를 구성할 때 사용하는 메서드.
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/", "/join", "/login", ).permitAll()    // 루트 URL은 모두 접근 허용
+                        .requestMatchers("/", "/join", "/login").permitAll()    // 루트 URL은 모두 접근 허용
                         .requestMatchers("/admin/**").hasRole("ADMIN")     // admin 권한 사용자만 이용 가능
                         .requestMatchers("/mypage/**").hasAnyRole("ADMIN", "USER") // admin, user 일때만 mypage 하위 페이지 접근 가능
                         .anyRequest().authenticated()); // 다른 모든 url 은 권한 검증을 거쳐야 한다.
