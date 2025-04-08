@@ -1,4 +1,4 @@
-# 03 [Spring Security] OAuth2 로그인 구현
+# 🔐 03 [Spring Security] OAuth2 로그인 구현
 
 ### 기능 요약
 1. Google, Naver 소셜 로그인
