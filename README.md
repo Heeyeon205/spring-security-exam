@@ -7,4 +7,4 @@ Spring Security Session
 JWT Token
 
 ### ▶ [security3](./security3/README.md)
-Oauth 2.0
+Oauth 2.0 소셜 로그인 구현
