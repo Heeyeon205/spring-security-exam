@@ -1,5 +1,19 @@
 # 🔐 03 [Spring Security] OAuth2 로그인 구현
 
+### OAuth2
+OAuth2는 외부 서비스(Google, Naver 등) 에 사용자 인증을 위임하여, 애플리케이션이 직접 사용자 정보를 다루지 않고도 인증할 수 있도록 해주는 인증 프로토콜이다.
+> Authorization Code Grant Type 인증 방식 
+
+<br>
+
+### 인증 절차 
+1. 사용자가 로그인 버튼 클릭 → 인증 서버(구글/네이버)로 이동
+2. 로그인 성공 시, 인증 서버가 redirect URI로 authorization code 전달
+3. 서버는 해당 code를 이용해 access token 을 요청
+4. access token으로 사용자 정보 요청 후 로그인 처리
+
+<br>
+
 ### 기능 요약
 1. Google, Naver 소셜 로그인
 2. 최초 로그인 시 사용자 DB에 등록
