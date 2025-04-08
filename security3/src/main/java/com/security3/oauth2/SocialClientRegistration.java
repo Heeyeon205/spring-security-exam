@@ -6,9 +6,13 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
+
 // yml 대신 클래스 객체 생성
 @Component
 public class SocialClientRegistration {
+// Google, Naver 로그인 정보를 코드 기반으로 등록하는 설정 클래스
+// ClientRegistration 객체를 직접 생성해서 Spring Security 에 넘겨주는 역할
 
     private final String googleId;
     private final String googleKey;
@@ -25,8 +29,8 @@ public class SocialClientRegistration {
         this.naverKey = naverKey;
     }
 
+    // Naver OAuth2 로그인 설정 객체 생성
     public ClientRegistration naverClientRegistration() {
-
         return ClientRegistration.withRegistrationId("naver")
                 .clientId(naverId)
                 .clientSecret(naverKey)
@@ -40,9 +44,8 @@ public class SocialClientRegistration {
                 .build();
     }
 
-    // 여기서는 구글 provider 우리가 직접 등록해줘야하는데 그냥 아래값 사용하면된다
+    // Google OAuth2 로그인 설정 객체 생성
     public ClientRegistration googleClientRegistration() {
-
         return ClientRegistration.withRegistrationId("google")
                 .clientId(googleId)
                 .clientSecret(googleKey)
@@ -58,3 +61,13 @@ public class SocialClientRegistration {
                 .build();
     }
 }
+
+/*
+application.yml 없이 ID, Secret 등은 환경변수(@Value)로 받음
+  ↓
+각 소셜 로그인 설정을 직접 ClientRegistration 으로 생성
+  ↓
+CustomClientRegistrationRepo 에서 InMemory 저장소로 등록
+  ↓
+Spring Security 가 이 정보를 사용하여 소셜 로그인 처리
+ */

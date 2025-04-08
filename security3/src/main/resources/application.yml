@@ -11,7 +11,6 @@ logging:
     com.my.studyRecord: trace
     org.springframework.security: debug
 
-
 spring:
   profiles:
     include: secret
@@ -24,7 +23,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     database: mysql
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 
     # JDBC TimeZone Setting
     properties:

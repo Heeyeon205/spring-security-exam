@@ -6,8 +6,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
+
     @GetMapping("/")
     public @ResponseBody String mainPage(){
         return "main page";
+    }
+
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
     }
 }
